@@ -84,7 +84,10 @@ void insertTreeMap(TreeMap * tree, void* key, void * value) {
     tree->root =nuevo;//si esta vacio el nuevo sera raiz
   }else{
     int aux=is_equal(tree, key , actual->pair->key);
-    if (aux<0){
+    if(aux==0){
+      return;//clave repetida
+    }
+    else if (aux<0){
       padre->left=nuevo;
       
     }else{

@@ -89,7 +89,7 @@ Pair * searchTreeMap(TreeMap * tree, void* key) {
     int aux=tree->lower_than(key, node->pair->key);
     if (aux==0){
       //actualizar el puntero
-      
+      tree->current=node;
       return node->pair;
       
     }

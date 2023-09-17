@@ -53,8 +53,46 @@ TreeMap * createTreeMap(int (*lower_than) (void* key1, void* key2)) {
 
 
 void insertTreeMap(TreeMap * tree, void* key, void * value) {
+// inserta un nuevo dato (key,value) en el árbol y hace que el current apunte al nuevo nodo.
+  if (tree==NULL){
+    return;//o crear un nuevo arbol
+  }
+  //buscar ubicacion
+  TreeNode*padre=NULL;
+  TreeNode*actual=tree->root;
 
-}
+  while (actual !=NULL){
+    int aux = is_equal(tree, key, actual->pair->key);
+
+    if (aux==0){
+      //Existe
+      return;
+    }
+    else if(aux<0){
+      padre=actual;
+      actual=actual->left;
+    }
+    else{
+      padre=actual;
+      actual=actual->right;
+    }
+  }
+
+  //crear un nodo para el nuev0
+  TreeNode*nuevo=createTreeNode(key,value);
+  if (padre==NULL){
+    tree->root =nuevo;//si esta vacio el nuevo sera raiz
+  }else{
+    int aux=is_equal(tree, key , actual->pair->key);
+    if (aux<0){
+      padre->left=nuevo;
+      
+    }else{
+      padre->right=nuevo;
+    }
+  }
+  tree->current=nuevo;
+}  
 
 TreeNode * minimum(TreeNode * x){
 
@@ -84,9 +122,9 @@ Pair * searchTreeMap(TreeMap * tree, void* key) {
     return NULL;//el arbol esta vacío
   }
 
-  TreeNode*node = tree->root;
+  TreeNode*node = tree->root;//nodo va a ser igual al padre
   while (node !=NULL){
-    int aux=tree->lower_than(key, node->pair->key);
+    int aux=tree->lower_than(key, node->pair->key);// retorna 1 si key1<key2.
     if (aux==0){
       //actualizar el puntero
       tree->current=node;

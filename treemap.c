@@ -37,9 +37,18 @@ TreeNode * createTreeNode(void* key, void * value) {
 }
 
 TreeMap * createTreeMap(int (*lower_than) (void* key1, void* key2)) {
+//recibe la función de comparación de claves y crea un mapa (TreeMap) inicializando sus variables.
+  TreeMap*map=(TreeMap*)malloc(sizeof(TreeMap));
 
-    //new->lower_than = lower_than;
+  if (map==NULL){
+    //error de asignacion de memoria
     return NULL;
+  }
+  map->lower_than=lower_than;
+  map->root=NULL;
+  return map;
+  
+
 }
 
 

@@ -79,7 +79,27 @@ void eraseTreeMap(TreeMap * tree, void* key){
 
 
 Pair * searchTreeMap(TreeMap * tree, void* key) {
-    return NULL;
+  //busca el nodo con clave igual a key y retorna el Pair asociado al nodo. 
+  if (tree==NULL || tree->root ==NULL){
+    return NULL;//el arbol esta vacío
+  }
+
+  TreeNode*node = tree->root;
+  while (node !=NULL){
+    int aux=tree->lower_than(key, node->pair->key);
+    if (aux==0){
+      //actualizar el puntero
+      
+      return node->pair;
+      
+    }
+    else if (aux<0){//buscar en la otra "rama"
+      node=node->left;
+    }else{//buscar en el otro subarbol
+      node=node->right;
+    }
+  }
+  return NULL;
 }
 
 
